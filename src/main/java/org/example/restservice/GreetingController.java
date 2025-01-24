@@ -92,19 +92,20 @@ public class GreetingController {
     }
 
     @GetMapping("/rawr")
-    public BearImage bearImage() {
+    public String bearImage() {
         // Generate a random integer between 1 and 57 (inclusive) to select a bear image from the map.
         int randomInt = (int) (Math.random() * 58) + 1;
         String randomBearPath = "/images/bears/" + randomInt + ".jpg";
         String photographerName = bearImages.get(randomBearPath);
-        String randomBearURL = "localhost:8080/images/bears/" + randomInt + ".jpg";
+        String randomBearURL = "http://localhost:8080/images/bears/" + randomInt + ".jpg";
 
         // Print out previous values for debugging
         System.out.println("randomInt: " + randomInt);
         System.out.println("randomBearURL: " + randomBearURL);
         System.out.println("photographerName: " + photographerName);
 
-        return new BearImage(randomBearURL, photographerName);
+        return randomBearURL;
+        //return new BearImage(randomBearURL, photographerName);
     }
 
 //    @GetMapping("/create-sentence")

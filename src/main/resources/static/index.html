@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Bear Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            /*background-image: url('images/park-background.jpg');*/
+        }
+        h1 {
+            color: #333;
+        }
+        img {
+            width: 1000px; /* Fixed width */
+            height: 700px; /* Fixed height */
+            /* Can use cover to fill the img with no distortion */
+            object-fit: scale-down; /* Prevent distortion and crop if needed */
+            border-radius: 10px; /* Optional rounded corners */
+            /*border: 2px solid #ccc;  Optional border */
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>Hello World, This Is Bear</h1>
+<img id="bearImage" src="" alt="Bear Image">
+<br>
+<button id="loadButton">Load New Image</button>
+
+<script>
+    // Function to fetch and display the random bear image
+    async function loadBearImage() {
+        try {
+            const response = await fetch('http://localhost:8080/rawr');
+            const imageUrl = await response.text(); // Assuming your endpoint returns plain text
+            console.log('Fetched bear image:', imageUrl);
+            document.getElementById('bearImage').src = imageUrl;
+        } catch (error) {
+            console.error('Error fetching bear image:', error);
+        }
+    }
+
+    // Add event listener to button
+    document.getElementById('loadButton').addEventListener('click', loadBearImage);
+
+    // Load a bear image on page load
+    window.onload = loadBearImage;
+</script>
+</body>
+</html>
