@@ -4,35 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Bear Image</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            /*background-image: url('images/park-background.jpg');*/
-        }
-        h1 {
-            color: #333;
-        }
-        img {
-            width: 1000px; /* Fixed width */
-            height: 700px; /* Fixed height */
-            /* Can use cover to fill the img with no distortion */
-            object-fit: scale-down; /* Prevent distortion and crop if needed */
-            border-radius: 10px; /* Optional rounded corners */
-            /*border: 2px solid #ccc;  Optional border */
-        }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header>
+    <nav class="header-navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
 <h1>Hello World, This Is Bear</h1>
+<h3 id="photographerName" style="color: white"></h3>
 <img id="bearImage" src="" alt="Bear Image">
 <br>
 <button id="loadButton">Load New Image</button>
@@ -42,10 +27,18 @@
     async function loadBearImage() {
         try {
             const response = await fetch('http://localhost:8080/rawr');
-            const imageUrl = await response.text(); // Assuming your endpoint returns plain text
-            console.log('Fetched bear image:', imageUrl);
-            document.getElementById('bearImage').src = imageUrl;
+            const data = await response.json(); // Parse json
+            console.log(data)
+            const img = data.url; // "url" in the JSON is where img link is located
+            const photographer = "Credit: " + data.photographer; // "photographer" in the JSON is where img link is located
+            console.log('Fetched bear image:', img);
+
+            // Update image source in HTML
+            document.getElementById('bearImage').src = img;
+            // Update photographer name in HTML
+            document.getElementById('photographerName').textContent = photographer;
         } catch (error) {
+            // TODO: Update both bearImage and photographerName to error images instead of nothing
             console.error('Error fetching bear image:', error);
         }
     }
@@ -56,5 +49,14 @@
     // Load a bear image on page load
     window.onload = loadBearImage;
 </script>
+<footer>
+    <nav class="footer-navbar">
+        <ul>
+        <!--<li><a href="http://localhost:8080/rawr">/rawr</a></li>-->
+            <li><a href="http://localhost:8080/rawr.json">/rawr.json</a></li>
+            <li><a href="http://localhost:8080/floofs">/bears</a></li>
+        </ul>
+    </nav>
+</footer>
 </body>
 </html>

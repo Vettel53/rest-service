@@ -1,29 +1,27 @@
 package org.example.restservice;
 
-import jakarta.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
 // Which marks the class as a controller where every method returns a domain object instead of a view.
 @RestController
-public class GreetingController {
+public class Controller {
 
     private static final String template = "Hello";
     private final AtomicLong greetingCounter = new AtomicLong();
-    private final AtomicLong poopCounter = new AtomicLong();
+//    private final AtomicLong poopCounter = new AtomicLong();
     private final Map<String, String> bearImages = new HashMap<String, String>();
 
     /**
      * The constructor initializes the GreetingController with a map of bear images and their respective photographers.
      * It populates the map with 58 bear image URLs and their photographer names.
      */
-    public GreetingController() {
+    public Controller() {
         bearImages.put("/images/bears/1.jpg", "Janko Ferlič");
         bearImages.put("/images/bears/2.jpg", "Janko Ferlič");
         bearImages.put("/images/bears/3.jpg", "Janko Ferlič");
@@ -91,9 +89,26 @@ public class GreetingController {
         return new Greeting(greetingCounter.incrementAndGet(), String.format(template, name));
     }
 
-    @GetMapping("/rawr")
-    public String bearImage() {
-        // Generate a random integer between 1 and 57 (inclusive) to select a bear image from the map.
+//    @GetMapping("/rawr")
+//    public BearImage bearImage() {
+//        // Generate a random integer between 1 and 57 (inclusive) to select a bear image from the map.
+//        int randomInt = (int) (Math.random() * 58) + 1;
+//        String randomBearPath = "/images/bears/" + randomInt + ".jpg";
+//        String photographerName = bearImages.get(randomBearPath);
+//        String randomBearURL = "http://localhost:8080/images/bears/" + randomInt + ".jpg";
+//
+//        // Print out previous values for debugging
+//        System.out.println("randomInt: " + randomInt);
+//        System.out.println("randomBearURL: " + randomBearURL);
+//        System.out.println("photographerName: " + photographerName);
+//
+//        //return randomBearURL;
+//        return new BearImage(randomBearURL, photographerName);
+//    }
+
+    @GetMapping("/rawr.json")
+    public BearImage bearJSON() {
+        // Generate a random integer between 1 and 58 (inclusive) to select a bear image from the map.
         int randomInt = (int) (Math.random() * 58) + 1;
         String randomBearPath = "/images/bears/" + randomInt + ".jpg";
         String photographerName = bearImages.get(randomBearPath);
@@ -104,9 +119,15 @@ public class GreetingController {
         System.out.println("randomBearURL: " + randomBearURL);
         System.out.println("photographerName: " + photographerName);
 
-        return randomBearURL;
-        //return new BearImage(randomBearURL, photographerName);
+        //return randomBearURL;
+        return new BearImage(randomBearURL, photographerName);
     }
+
+    @GetMapping("/floofs")
+    public Map<String, String> bearFloofs() {
+        return bearImages;
+    }
+
 
 //    @GetMapping("/create-sentence")
 //    public Poop poop(@RequestParam(value = "first", defaultValue = "create") String word1,
