@@ -14,3 +14,6 @@ Fetches a random bear photo URL and the photographer's name in JSON format.
 
 ### GET `/floofs`
 Fetches all the bear photos with respective credit to photographer in JSON format.
+
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request for any changes
