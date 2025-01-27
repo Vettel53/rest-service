@@ -1,7 +1,7 @@
 # Bear Photo API
 
 ## Overview
-This project is a RESTful service built with Spring Boot that fetches and displays random bear photos. Users can visit the website to load a random bear photo along with credits to the photographer. This project is heavily inspired by random.dog, random-d.uk, and random.cat.
+This project is heavily inspired by [random.dog](https://random.dog), [random-d.uk](https://random-d.uk), and [random.cat](https://random.cat). It's a RESTful service built with Spring Boot that fetches and displays random bear photos. Users can visit the website to load a random bear photo along with credits to the photographer.
 
 ## Features
 - Fetch a random bear photo
