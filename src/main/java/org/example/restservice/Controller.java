@@ -128,6 +128,9 @@ public class Controller {
         return bearImages;
     }
 
+    public int getBearCount() {
+        return bearImages.size();
+    }
 
 //    @GetMapping("/create-sentence")
 //    public Poop poop(@RequestParam(value = "first", defaultValue = "create") String word1,
