@@ -22,66 +22,33 @@
 </div>
 
 
-<div class="bear-container" style="display: block; margin: auto;">
+<div class="bear-container">
     <img id="bearImage" src="" class="fade-in"  onload="fadeIn(this)" alt="Bear Image">
 </div>
 
 <br>
 <button id="loadButton" style="display: block">Load New Image</button>
 
-<!--TODO: Add bear count in the bottom left-->
-
-<script>
-    // Function to fetch and display the random bear image
-    async function loadBearImage() {
-        try {
-            // Remove old image class
-            const bearImage = document.getElementById('bearImage');
-            bearImage.classList.remove('loaded');
-
-            const response = await fetch('http://localhost:8080/rawr');
-            const data = await response.json(); // Parse json
-            console.log(data)
-            const img = data.url; // "url" in the JSON is where img link is located
-            const photographer = "Credit: " + data.photographer; // "photographer" in the JSON is where img link is located
-            console.log('Fetched bear image:', img);
-
-            // Update image source in HTML
-            bearImage.src = img;
-            // Update photographer name in HTML
-            document.getElementById('photographerName').textContent = photographer;
-
-            // Add fade-in animation to new image
-            bearImage.onload = function() {
-                fadeIn(bearImage);
-            };
-        } catch (error) {
-            // TODO: Update both bearImage and photographerName to error images instead of nothing
-            console.error('Error fetching bear image:', error);
-        }
-    }
-
-    // Add fade-in animation for bear image
-    function fadeIn(element) {
-        element.classList.add('loaded');
-    }
-
-    // Add event listener to button
-    document.getElementById('loadButton').addEventListener('click', loadBearImage);
-
-    // Load a bear image on page load
-    window.onload = loadBearImage;
-</script>
 <footer>
+    <div id="bearCount" class="footer-left">
+
+    </div>
+    <div class="footer-right">
+        <!-- Content you want to float to the left -->
+        &copy; 2025 vettel53
+    </div>
     <nav class="footer-navbar">
         <ul>
-        <!--<li><a href="http://localhost:8080/rawr">/rawr</a></li>-->
-            <li><a href="http://localhost:8080/rawr.json">/rawr.json</a></li>
-            <li><a href="http://localhost:8080/floofs">/floofs</a></li>
+            <!--<li><a href="http://localhost:8080/rawr">/rawr</a></li>-->
+            <li><a href="http://localhost:8080/rawr.json" target="_blank" rel="noopener noreferrer">/rawr.json</a></li>
+            <li><a href="http://localhost:8080/floofs" target="_blank" rel="noopener noreferrer">/floofs</a></li>
             <!--    May need to update link later        -->
-            <li><a href="https://github.com/Vettel53/rest-service/tree/main">/github</a></li>
+            <li><a href="https://github.com/Vettel53/rest-service/tree/main" target="_blank" rel="noopener noreferrer">/github</a></li>
         </ul>
     </nav>
 </footer>
+
+<script src="app.js"></script>
+
 </body>
 </html>

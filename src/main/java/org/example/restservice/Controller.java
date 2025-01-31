@@ -128,7 +128,8 @@ public class Controller {
         return bearImages;
     }
 
-    public int getBearCount() {
+    @GetMapping("/floofs/count")
+    public int getFloofCount() {
         return bearImages.size();
     }
 

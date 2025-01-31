@@ -16,6 +16,7 @@ body {
     color: #ffffff; /* White text */
     text-align: center;
     line-height: 1.6;
+    overflow-x: hidden /* Hide horizontal scrollbar */
 }
 
 /*main {*/
@@ -64,8 +65,9 @@ header {
 .contact-content {
     background-color: #1e1e1e; /* Dark gray container */
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 2rem;
 }
 
 .contact-description {
@@ -94,7 +96,7 @@ footer {
     background-color: #1e1e1e;
     border-top: 1px solid #333333;
     text-align: center;
-    width: 100%;
+    min-width: 100%;
     padding: 1rem 0;
     margin-top: auto; /* Pushes the footer to the bottom */
 }
@@ -106,7 +108,6 @@ footer {
     justify-content: center;
     gap: 2rem;
     padding: 0;
-    margin: 0;
 }
 
 .footer-navbar a {
@@ -120,13 +121,53 @@ footer {
     color: #b0b0b0;
 }
 
-/* Image Styling */
+/* Floating element to the left */
+.footer-left {
+    width: 10%;
+    float: left;
+    margin-left: 0; /* Adjust as needed */
+    color: #ffffff; /* Example text color */
+    font-size: 1rem; /* Example font size */
+}
+
+/* Floating element to the right */
+.footer-right {
+    width: 10%;
+    float: right;
+    margin-right: 1rem; /* Adjust as needed */
+    color: #ffffff; /* Example text color */
+    font-size: 1rem; /* Example font size */
+}
+
+/* Bear Image*/
+
+.bear-container {
+    display: block;
+    margin: 0 auto;
+    max-width: 62.5rem;
+    width: 100%
+}
+
+/*img {*/
+/*    max-width: 100%; !* Make the image fill the container *!*/
+/*    height: auto; !* Maintain aspect ratio *!*/
+/*    object-fit: cover; !* Prevent distortion and crop if needed *!*/
+/*    border-radius: 5px; !* Rounded corners *!*/
+/*    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); !* Subtle shadow *!*/
+/*}*/
+
+
+/* Responsive Image to Width Shrinkage */
 img {
-    width: 1000px; /* Fixed width */
-    height: 650px; /* Fixed height */
-    object-fit: cover; /* Prevent distortion and crop if needed */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    width: 100%;
+    height: auto;
+    max-width: 50vh;
+    object-fit: scale-down;
+}
+
+#bearImage {
+    max-width: 1000px;
+    height: 500px;
 }
 
 /* Button Styling */
@@ -138,13 +179,13 @@ button {
     cursor: pointer;
     background-color: #1F1F1F;
     color: #ffffff;
-    border: 1px solid #ffffff;
+    border: 1px solid #383838;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #6d6969; /* Light gray on hover */
+    background-color: #3c3c3c; /* Light gray on hover */
 }
 
 /* Fade-in Animation */
@@ -157,12 +198,34 @@ button:hover {
     opacity: 1;
 }
 
-#bearImage {
-    max-width: 1000px;
-    height: 500px;
-}
-
 .image-text {
     margin-top: 3rem;
     margin-bottom: 2rem;
+}
+
+/* scrollbar */
+
+::-webkit-scrollbar-corner {
+    background: rgba(0,0,0,0);
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #5f5f5f;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #8e8e8e;
 }
