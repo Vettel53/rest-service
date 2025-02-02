@@ -1,3 +1,12 @@
+
+const websites = [
+    "https://random.dog",
+    "https://randomfox.ca",
+    "https://random-d.uk",
+    "https://random.cat"
+];
+
+
 // Function to fetch and display the random bear image
 async function loadBearImage() {
     try {
@@ -29,7 +38,7 @@ async function loadBearImage() {
 
 async function loadBearCount() {
     try {
-        const response = await fetch('http://localhost:8080/floofs/count');
+        const response = await fetch('http://localhost:8080/floofs-count');
         const data = await response.json(); // Parse json
         console.log(data)
         const bearCount = data
@@ -44,6 +53,11 @@ async function loadBearCount() {
     }
 }
 
+function getRandomWebsite() {
+    // Generate a random index
+    return websites[Math.floor(Math.random() * websites.length)];
+}
+
 // Add fade-in animation for bear image
 function fadeIn(element) {
     element.classList.add('loaded');
@@ -55,9 +69,22 @@ if (document.getElementById('loadButton')) {
     document.getElementById('loadButton').addEventListener('click', loadBearImage);
 }
 
-// Load a bear image on page
-// Load bear count on page load
+// Check if the random website button exists in the html before attaching an event listener
+if (document.getElementById('randomWebsite')) {
+    // Add event listener to button
+    document.getElementById('randomWebsite').addEventListener('click', function (event) {
+        event.preventDefault();
+        const randomWebsite = getRandomWebsite();
+        window.open(randomWebsite, "_blank"); // Open in new tab
+    });
+}
+
+
 window.onload = function() {
-    loadBearImage().then(r => console.log('Loaded Initial Bear Image') );
+    // Check if bear image source is there (home page only)
+    if (document.getElementById('bearImage')) {
+        loadBearImage().then(r => console.log('Loaded Initial Bear Image') );
+    }
+    // Load bear count (all pages)
     loadBearCount().then(r => console.log('Loaded Bear Count') );
 }

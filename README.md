@@ -10,11 +10,17 @@ This project is heavily inspired by [random.dog](https://random.dog), [random-d.
 - Easy to extend and modify
 
 ## Endpoints
-### GET `/rawr.json`
+### GET `/rawr`
 Fetches a random bear photo URL and the photographer's name in JSON format.
+
+### GET `/rawrimg`
+Fetches a random bear image as a response entity (Not a URL)
 
 ### GET `/floofs`
 Fetches all the bear photos with respective credit to photographer in JSON format.
+
+### GET `/floofs-count`
+Fetches the amount of bear photos available in the application.
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any changes

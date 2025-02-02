@@ -1,9 +1,14 @@
 package org.example.restservice;
 
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -12,9 +17,6 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 public class Controller {
 
-    private static final String template = "Hello";
-    private final AtomicLong greetingCounter = new AtomicLong();
-//    private final AtomicLong poopCounter = new AtomicLong();
     private final Map<String, String> bearImages = new HashMap<String, String>();
 
     /**
@@ -82,34 +84,18 @@ public class Controller {
         bearImages.put("/images/bears/58.jpg", "Nidal Shbeeb");
     }
 
-    // Endpoint to greet a user by name. If no name is provided, defaults to "World".
-    // The @GetMapping annotation ensures that HTTP GET requests to /greeting are mapped to the greeting() method.
-    @GetMapping("/greeting")
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return new Greeting(greetingCounter.incrementAndGet(), String.format(template, name));
-    }
-
+    /**
+     * This method returns a random bear image URL and its photographer's name as a JSON object.
+     *
+     * @return BearImage - A JSON object containing the URL of a random bear image and its photographer's name.
+     *
+     */
     @GetMapping("/rawr")
-    public BearImage bearImage() {
-        // Generate a random integer between 1 and 57 (inclusive) to select a bear image from the map.
-        int randomInt = (int) (Math.random() * 58) + 1;
-        String randomBearPath = "/images/bears/" + randomInt + ".jpg";
-        String photographerName = bearImages.get(randomBearPath);
-        String randomBearURL = "http://localhost:8080/images/bears/" + randomInt + ".jpg";
-
-        // Print out previous values for debugging
-        System.out.println("randomInt: " + randomInt);
-        System.out.println("randomBearURL: " + randomBearURL);
-        System.out.println("photographerName: " + photographerName);
-
-        //return randomBearURL;
-        return new BearImage(randomBearURL, photographerName);
-    }
-
-    @GetMapping("/rawr.json")
-    public BearImage bearJSON() {
+    public BearImage returnBearImageJSON() {
         // Generate a random integer between 1 and 58 (inclusive) to select a bear image from the map.
         int randomInt = (int) (Math.random() * 58) + 1;
+
+        // Construct the file path for the selected bear image using relative path
         String randomBearPath = "/images/bears/" + randomInt + ".jpg";
         String photographerName = bearImages.get(randomBearPath);
         String randomBearURL = "http://localhost:8080/images/bears/" + randomInt + ".jpg";
@@ -122,13 +108,73 @@ public class Controller {
         //return randomBearURL;
         return new BearImage(randomBearURL, photographerName);
     }
+    
+    /**
+     * This method returns a random bear image from the server as a response entity.
+     * The image is read as an absolute path and sent as the response body.
+     *
+     * @return ResponseEntity<Resource> - The response entity containing the bear image.
+     * @throws Exception - If an error occurs while reading the image file.
+     */
+    @GetMapping("/rawrimg")
+    public ResponseEntity<Resource> returnBearImage() throws Exception {
+        // Generate a random integer between 1 and 58 (inclusive) to select a bear image from the map.
+        int randomInt = (int) (Math.random() * 58) + 1;
+    
+        // Construct the absolute file path for the selected bear image - Using Paths.get() doesn't allow a relative path
+        String randomBearPath = "src/main/resources/static/images/bears/" + randomInt + ".jpg";
+        String photographerName = bearImages.get(randomBearPath);
+        String randomBearURL = "http://localhost:8080/images/bears/" + randomInt + ".jpg";
+    
+        // Print out previous values for debugging
+        System.out.println("randomInt: " + randomInt);
+        System.out.println("randomBearURL: " + randomBearURL);
+        System.out.println("photographerName: " + photographerName);
+    
+        // Read the image file from the classpath and return it to .body
+        Path imagePath = Paths.get(randomBearPath);
+        Resource resource = new UrlResource(imagePath.toUri());
+    
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(resource);
+    }
 
-    @GetMapping("/floofs")
+//    @GetMapping("/rawr.json")
+//    public BearImage bearJSON() {
+//        // Generate a random integer between 1 and 58 (inclusive) to select a bear image from the map.
+//        int randomInt = (int) (Math.random() * 58) + 1;
+//        String randomBearPath = "/images/bears/" + randomInt + ".jpg";
+//        String photographerName = bearImages.get(randomBearPath);
+//        String randomBearURL = "http://localhost:8080/images/bears/" + randomInt + ".jpg";
+//
+//        // Print out previous values for debugging
+//        System.out.println("randomInt: " + randomInt);
+//        System.out.println("randomBearURL: " + randomBearURL);
+//        System.out.println("photographerName: " + photographerName);
+//
+//        //return randomBearURL;
+//        return new BearImage(randomBearURL, photographerName);
+//    }
+
+    /**
+     * This method returns a map of ALL bear image URLs and their respective photographers in JSON format
+     *
+     * @return Map<String, String> - A map where the keys are the relative paths of the bear images,
+     * and the values are the names of the photographers.
+     */
+    @GetMapping("/floofs") // Not returned in ascending order
     public Map<String, String> bearFloofs() {
         return bearImages;
     }
 
-    @GetMapping("/floofs/count")
+    /**
+     * This method returns the total count of bear images available in the application.
+     *
+     * @return int - The number of bear images in the application.
+     *
+     */
+    @GetMapping("/floofs-count")
     public int getFloofCount() {
         return bearImages.size();
     }
