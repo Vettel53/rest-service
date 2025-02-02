@@ -14,7 +14,7 @@ async function loadBearImage() {
         const bearImage = document.getElementById('bearImage');
         bearImage.classList.remove('loaded');
 
-        const response = await fetch('http://localhost:8080/rawr');
+        const response = await fetch('https://randombear.onrender.com/rawr');
         const data = await response.json(); // Parse json
         console.log(data)
         const img = data.url; // "url" in the JSON is where img link is located
@@ -38,7 +38,7 @@ async function loadBearImage() {
 
 async function loadBearCount() {
     try {
-        const response = await fetch('http://localhost:8080/floofs-count');
+        const response = await fetch('https://randombear.onrender.com/floofs-count');
         const data = await response.json(); // Parse json
         console.log(data)
         const bearCount = data

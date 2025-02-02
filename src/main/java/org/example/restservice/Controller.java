@@ -98,7 +98,7 @@ public class Controller {
         // Construct the file path for the selected bear image using relative path
         String randomBearPath = "/images/bears/" + randomInt + ".jpg";
         String photographerName = bearImages.get(randomBearPath);
-        String randomBearURL = "http://localhost:8080/images/bears/" + randomInt + ".jpg";
+        String randomBearURL = "https://randombear.onrender.com/images/bears/" + randomInt + ".jpg";
 
         // Print out previous values for debugging
         System.out.println("randomInt: " + randomInt);
@@ -124,7 +124,7 @@ public class Controller {
         // Construct the absolute file path for the selected bear image - Using Paths.get() doesn't allow a relative path
         String randomBearPath = "src/main/resources/static/images/bears/" + randomInt + ".jpg";
         String photographerName = bearImages.get(randomBearPath);
-        String randomBearURL = "http://localhost:8080/images/bears/" + randomInt + ".jpg";
+        String randomBearURL = "https://randombear.onrender.com/images/bears/" + randomInt + ".jpg";
     
         // Print out previous values for debugging
         System.out.println("randomInt: " + randomInt);
