@@ -132,12 +132,13 @@ public class Controller {
         System.out.println("photographerName: " + photographerName);
     
         // Read the image file from the classpath and return it to .body
-        Path imagePath = Paths.get(randomBearPath);
-        Resource resource = new UrlResource(imagePath.toUri());
-    
+        // Path imagePath = Paths.get(randomBearPath);
+        // Access the resource from the classpath
+        ClassPathResource imgFile = new ClassPathResource(randomBearPath);
+
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG)
-                .body(resource);
+                .body(new InputStreamResource(imgFile.getInputStream()));
     }
 
 //    @GetMapping("/rawr.json")
