@@ -15,9 +15,6 @@ This project is heavily inspired by [random.dog](https://random.dog), [random-d.
 ### GET `/rawr`
 Fetches a random bear photo URL and the photographer's name in JSON format.
 
-### GET `/rawrimg`
-Fetches a random bear image as a response entity (Not a URL)
-
 ### GET `/floofs`
 Fetches all the bear photos with respective credit to photographer in JSON format.
 
