@@ -13,8 +13,7 @@ This project is heavily inspired by [random.dog](https://random.dog), [random-d.
 - Open source
 
 ## Endpoints
-### BASE URL
-https://randombear.onrender.com
+### BASE URL `https://randombear.onrender.com`
 
 ### GET `/rawr`
 Fetches a random bear photo URL and the photographer's name in JSON format.
