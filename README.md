@@ -8,10 +8,14 @@ This project is heavily inspired by [random.dog](https://random.dog), [random-d.
 
 ## Features
 - Fetch a random bear photo
-- Display photographer credit
-- Easy to extend and modify
+- Display photographer credit for each photo
+- Public API with multiple endpoints
+- Open source
 
 ## Endpoints
+### BASE URL
+https://randombear.onrender.com
+
 ### GET `/rawr`
 Fetches a random bear photo URL and the photographer's name in JSON format.
 
