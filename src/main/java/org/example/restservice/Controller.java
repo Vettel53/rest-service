@@ -1,7 +1,9 @@
 package org.example.restservice;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -118,23 +120,22 @@ public class Controller {
      */
     @GetMapping("/rawrimg")
     public ResponseEntity<Resource> returnBearImage() throws Exception {
-        // Generate a random integer between 1 and 58 (inclusive) to select a bear image from the map.
+        // Debug current directory
+        String currentWorkingDirectory = System.getProperty("user.dir");
+        System.out.println("Current directory: " + currentWorkingDirectory);
+        
         int randomInt = (int) (Math.random() * 58) + 1;
-    
-        // Construct the absolute file path for the selected bear image - Using Paths.get() doesn't allow a relative path
-        String randomBearPath = "src/main/resources/static/images/bears/" + randomInt + ".jpg";
-        String photographerName = bearImages.get(randomBearPath);
-        String randomBearURL = "https://randombear.onrender.com/images/bears/" + randomInt + ".jpg";
-    
-        // Print out previous values for debugging
-        System.out.println("randomInt: " + randomInt);
-        System.out.println("randomBearURL: " + randomBearURL);
-        System.out.println("photographerName: " + photographerName);
-    
-        // Read the image file from the classpath and return it to .body
-        Path imagePath = Paths.get(randomBearPath);
-        Resource resource = new UrlResource(imagePath.toUri());
-    
+        String imageName = randomInt + ".jpg";
+        String imagePath = "static/images/bears/" + imageName;
+
+        // Load the image as a classpath resource
+        Resource resource = new ClassPathResource(imagePath);
+
+        // Check if the resource does not exist (Do proper error handling later)
+        if (!resource.exists()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(resource);
